@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using SwashBuckle.AspNetCore.MicrosoftExtensions.VendorExtensionEntities;
@@ -14,17 +18,16 @@ namespace SwashBuckle.AspNetCore.MicrosoftExtensions.Filters
             m_filePickerCapability = capability;
         }
 
-        public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
+        public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             AddFilePickerCapabilityExtension(swaggerDoc);
         }
 
-        private void AddFilePickerCapabilityExtension(SwaggerDocument swaggerDoc)
+        private void AddFilePickerCapabilityExtension(OpenApiDocument swaggerDoc)
         {
-            swaggerDoc.Extensions.Add
-            (
+            swaggerDoc.AddExtension(
                 Constants.XMsCapabilities,
-                new Dictionary<string, object> {{Constants.FilePicker, m_filePickerCapability}}
+                new OpenApiObject { {Constants.FilePicker, new OpenApiRawString(JsonConvert.SerializeObject(m_filePickerCapability))}}
             );
         }
     }

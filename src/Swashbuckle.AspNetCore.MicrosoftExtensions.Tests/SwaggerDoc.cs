@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -6,7 +7,7 @@ namespace Swashbuckle.AspNetCore.MicrosoftExtensions.Tests
 {
     public class SwaggerDocument
     {
-        public IDictionary<string, Schema> Definitions;
+        public IDictionary<string, OpenApiSchema> Definitions;
         public Info Info;
         public IDictionary<string, Parameter> Parameters;
         public IDictionary<string, PathItem> Paths;
@@ -51,6 +52,6 @@ namespace Swashbuckle.AspNetCore.MicrosoftExtensions.Tests
     public class Response
     {
         public string Description;
-        public Schema Schema;
+        public OpenApiSchema Schema;
     }
 }

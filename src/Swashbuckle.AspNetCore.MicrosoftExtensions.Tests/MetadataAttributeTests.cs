@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.OpenApi.Any;
 using TestApi;
 using TestApi.Models;
 using Xunit;
@@ -33,9 +34,10 @@ namespace Swashbuckle.AspNetCore.MicrosoftExtensions.Tests
             var testy = definitions.First(x => x.Key == nameof(MetadataAttributeClass)).Value;
             var testyProperty = testy.Properties.Single();
             Assert.Equal(testyProperty.Key, "customName");
-            Assert.Equal("advanced", testyProperty.Value.Extensions["x-ms-visibility"]);
-            Assert.Equal("Friendly", testyProperty.Value.Extensions["x-ms-summary"]);
-            Assert.Equal("Description", testyProperty.Value.Description);
+            void CheckExtension(string key, string expectedValue)=> Assert.True(testyProperty.Value.Extensions[key] is OpenApiPrimitive<string> p && p.Value == expectedValue);
+            CheckExtension("x-ms-visibility", "advanced");
+            CheckExtension("Friendly", "x-ms-summary");
+            CheckExtension("Description", testyProperty.Value.Description);
         }
 
         [Fact]
@@ -48,7 +50,7 @@ namespace Swashbuckle.AspNetCore.MicrosoftExtensions.Tests
             Assert.Equal("FriendlyAction", operationExtensions["summary"]);
             Assert.Equal("ActionDescription", operationExtensions["description"]);
         }
-        
+
         [Fact]
         public async void ActionParameterMetada()
         {
@@ -60,7 +62,7 @@ namespace Swashbuckle.AspNetCore.MicrosoftExtensions.Tests
             Assert.Equal("FriendlyParameter", parameterExtensions["x-ms-summary"]);
             Assert.Equal("ParameterDescription", parameterExtensions["description"]);
         }
-        
+
         [Fact]
         public async void ActionMetadataWithNullValues()
         {

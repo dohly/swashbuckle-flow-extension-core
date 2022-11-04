@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Title>Swashbuckle extensions for MS Flow/LogicApps/PowerApps</Title>
     <PackageProjectUrl>https://github.com/BenasJacikas/swashbuckle-flow-extension-core</PackageProjectUrl>
     <PackageLicenseUrl>http://www.wtfpl.net/</PackageLicenseUrl>
@@ -9,9 +9,9 @@
     <Authors>Benas Jacikas, Šarūnas Paškevičius</Authors>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen">
-      <Version>1.0.0</Version>
+      <Version>6.4.0</Version>
     </PackageReference>
   </ItemGroup>
 </Project>
